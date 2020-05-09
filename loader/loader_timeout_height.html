@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+</head>
+<style>
+* {margin: 0; padding: 0; list-style: none; box-sizing: border-box; text-decoration: none;}
+
+.loader-wrap {
+	position: fixed;
+	display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+.loader-hidden {
+  animation: loader-hidden 2s ease-in-out forwards;
+}
+@keyframes loader-hidden {
+  0% {opacity: 1;}
+  100% {opacity: 0;}
+}
+.loader,
+.loader:before,
+.loader:after {
+	width: 1em;
+	height: 3em;
+	background: #fff;
+	animation: loader-anim 1.6s infinite ease-in-out;
+}
+.loader {
+	position: relative;
+	color: #ffffff;
+	text-indent: -9999em;
+	font-size: 10px;
+	transform: translateZ(0);
+	animation-delay: .16s;
+}
+.loader:before,
+.loader:after {
+	position: absolute;
+	top: 0;
+	content: '';
+}
+.loader:before {
+	left: -2em;
+}
+.loader:after {
+	left: 2em;
+	animation-delay: .32s;
+}
+@keyframes loader-anim {
+	0%,
+	80% {
+		box-shadow: 0 0;
+		height: 3em;
+	}
+		40% {
+		box-shadow: 0 -1em;
+		height: 4em;
+	}
+}
+</style>
+<body>
+<div class="loader-wrap">
+	<div class="loader">Loading...</div>
+</div>
+
+<script>
+const wrap = document.querySelector('.loader-wrap');
+
+//loadして1秒後に実行
+window.addEventListener('load', function(){
+	setTimeout(() => {
+    wrap.classList.add('loader-hidden');
+	},1000);
+});
+
+//loadが終わらなくてもDOM（HTMLソース）読み込んで5秒後に実行
+document.addEventListener('DOMContentLoaded', function() {
+	setTimeout(() => {
+    wrap.classList.add('loader-hidden');
+	},5000);
+});
+
+
+</script>
+</body>
+</html>

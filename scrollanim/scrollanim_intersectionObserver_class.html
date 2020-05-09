@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+</head>
+<style>
+* { margin: 0; padding: 0; }
+header { height: 100vh; background: #ccc;}
+.block {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  transition: .5s;
+}
+.block1 {background: #666;}
+.block2 { background: #aaa;}
+.block3 { background: #333;}
+.block1.inview {background: green;}
+.block2.inview { background: brown;}
+.block3.inview { background: blue;}
+
+</style>
+<body>
+<header>header</header>
+<section class="block block1">green</section>
+<section class="block block2">brown</section>
+<section class="block block3">blue</section>
+<script src="https://polyfill.io/v2/polyfill.min.js?features=IntersectionObserver"></script>
+<script>
+
+//--------------------------------------------------------------
+const sections = document.querySelectorAll('section');  //監視対象のオブジェクトを代入
+
+const action = function (entries, observer) {
+  entries.forEach(entry => {
+    if(entry.isIntersecting) {  //entry.isIntersecting:true -> 要素がブラウザ表示領域内にある状態
+      entry.target.classList.add('inview');
+      // observer.unobserve(entry.target); //監視を一度で止める場合に利用 止める場合はelse処理は不要
+    } else {
+      entry.target.classList.remove('inview');  //要素がブラウザ表示領域内から外れたら
+    }
+  });
+};
+
+const options = {
+  root: null,
+  rootMargin: "70% 0px 30% 0px", //上端から30%の距離で変化開始、要素の70%スクロールした時点で変化終了
+
+  // rootMargin: '30% 0px',  //コンテンツを100vhで背景色を操作する場合、監視を一度で止めないと options の rootMarginが下辺でも当たるため、コンテンツ自体が非表示になる
+  threshold: 1
+}
+
+const observer = new IntersectionObserver(action, options);  //画面内に入った時、画面から出た時に、observerコールバック関数発火
+
+sections.forEach(section => {
+  observer.observe(section);  //監視対象に登録
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+</head>
+<style>
+* {margin: 0; padding: 0; list-style: none; box-sizing: border-box; text-decoration: none;}
+body {
+  overflow: hidden;
+  background: #ccc;
+}
+.is-opening {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  opacity: 1;
+  background: #0062a0;
+  animation: opening .8s linear forwards;
+}
+@keyframes opening {
+  0% {opacity: 1;}
+  100% {opacity: 0;}
+}
+.is-closing {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  background: #0062a0;
+  animation: closing 1s ease-in-out forwards;
+}
+@keyframes closing {
+  0% {transform: translate(-50%, -50%) scale(0);}
+  100% {transform: translate(-50%, -50%) scale(200); opacity: 1;}
+}
+</style>
+<body>
+<main>
+  <a href="">Click Event</a>
+</main>
+
+<script>
+//ページ表示時のアニメーション
+window.addEventListener('DOMContentLoaded', (event) => {
+
+  //アニメーション用要素追加
+  const opening = document.createElement('div');
+  opening.classList.add('is-opening');
+  document.body.appendChild(opening);
+
+  //アニメーション用要素削除
+  setTimeout(() => {
+    opening.remove();
+  }, 2000);
+});
+
+//クリックしてからページ遷移するまでのアニメーション
+const anchors= document.querySelectorAll('a:not([href^="#"]):not([target])');  //#,_blank以外のアンカー
+for ( let i = 0; i < anchors.length; i++ ) {
+  anchors[i].addEventListener('click', (e) => {
+
+    e.preventDefault();  //デフォルトのクリックイベント無効化
+    const href= anchors[i].getAttribute("href"); //クリックされたアンカーのリンク先取得
+
+    //アニメーション用要素追加
+    const closing = document.createElement('div');
+    closing.classList.add('is-closing');
+    document.body.appendChild(closing);
+
+     //アニメーションが終了したらページ遷移
+    closing.addEventListener('animationend', () => {
+      window.location = href; //取得したhref先へページ遷移
+    });
+
+  });
+}
+</script>
+
+</body>
+</html>

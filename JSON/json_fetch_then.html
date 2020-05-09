@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-align: center;
+}
+.block {
+  margin: 50px auto;
+}
+.wrap {
+  padding: 20px;
+  display: flex;
+  justify-content: space-around;
+  background-color: #f8f8f8;
+}
+.card {
+  padding: 30px 20px;
+  background-color:lavenderblush;
+}
+</style>
+</head>
+<body>
+<div id="output"></div>
+<script>
+//--------------------------------------------------------------
+const output = document.querySelector('#output');
+
+fetch('data.json')
+  .then((data) => data.json())
+  .then(function(data){
+
+    for (let i in data) {
+
+      const block = document.createElement('div');
+      block.className = 'block';
+
+      const wrap = document.createElement('div');
+      wrap.className = 'wrap';
+
+      const h2 = document.createElement('h2');
+      h2.textContent = `${data[i].title}`;
+
+      for (let j in data[i].content) {
+        console.log(data[i].content[j].card);
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        const h3 = document.createElement('h3');
+        h3.textContent = `${data[i].content[j].card}`;
+
+        const img = document.createElement('img');
+        img.src = `${data[i].content[j].img}`;
+        img.alt = `${data[i].content[j].alt}`;
+
+        const p = document.createElement('p');
+        p.textContent = `${data[i].content[j].text}`;
+
+        wrap.appendChild(card);
+        card.appendChild(h3);
+        card.appendChild(img);
+        card.appendChild(p);
+
+      }
+
+      output.appendChild(h2);
+      output.appendChild(block);
+      block.appendChild(wrap);
+    }
+});
+
+
+</script>
+</body>
+</html>

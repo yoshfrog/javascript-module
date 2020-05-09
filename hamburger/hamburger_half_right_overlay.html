@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+</head>
+<style>
+* {margin: 0; padding: 0; list-style: none; box-sizing: border-box; text-decoration: none;}
+.global-nav__wrap { position: relative; }
+.global-nav {
+  position: fixed;
+  top: 0;
+  left: 100%;
+  width: 50vw;
+  height: 100vh;
+  z-index: 1;
+  background: #aaa;
+  transition: all .5s;
+  transform: translateX(0%);
+}
+.global-nav__list {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.global-nav__link {
+  color: #fff;
+  transition: all .5s;
+}
+.global-nav__link:hover { color: #ccc; }
+
+.hamburger {
+  display: block;
+  position: fixed;
+  right: 30px;
+  top: 30px;
+  width: 30px;
+  height: 20px;
+  z-index: 10;
+  transition: all .5s;
+  transform: translateX(0%);
+}
+.hamburger__line {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 2px;
+  transition: transform .5s;
+  background: #000;
+}
+.hamburger__line:nth-child(2) { top: 9px; left: 0; opacity: 1;}
+.hamburger__line:nth-child(3) { bottom: 0; }
+
+.is-shown .global-nav { transform: translateX(-100%); }
+.is-shown .hamburger__line { background: #fff; }
+.is-shown .hamburger__line:nth-of-type(1) {
+  transform: translateY(9px) rotate(-45deg);
+}
+.is-shown .hamburger__line:nth-of-type(2) {
+  animation: hamburger__line-nth2 .5s forwards;
+}
+.is-shown .hamburger__line:nth-of-type(3) {
+  transform: translateY(-9px) rotate(45deg);
+}
+@keyframes hamburger__line-nth2 {
+  100% {
+    left: 50%;
+    opacity: 0;
+    height: 0;
+  }
+}
+
+
+.global-nav__overlay {
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.block {
+  height: 100vh;
+}
+
+</style>
+</head>
+<body>
+	<div class="global-nav__wrap">
+		<nav class="global-nav">
+			<ul class="global-nav__list">
+				<li class="global-nav__item"><a class="global-nav__link" href="#block01">block01</a></li>
+				<li class="global-nav__item"><a class="global-nav__link" href="#block02">block02</a></li>
+				<li class="global-nav__item"><a class="global-nav__link" href="#block03">block03</a></li>
+				<li class="global-nav__item"><a class="global-nav__link" href="#block04">block04</a></li>
+				<li class="global-nav__item"><a class="global-nav__link" href="#block05">block05</a></li>
+			</ul>
+		</nav>
+		<div class="hamburger">
+			<span class="hamburger__line"></span>
+			<span class="hamburger__line"></span>
+			<span class="hamburger__line"></span>
+		</div>
+	</div><!--global-nav__wrap-->
+
+<main>
+<div id="block01" class="block">block01</div>
+<div id="block02" class="block">block02</div>
+<div id="block03" class="block">block03</div>
+<div id="block04" class="block">block04</div>
+<div id="block05" class="block">block05</div>
+
+</main>
+<script>
+
+const hamburger = document.querySelector('.hamburger');
+const nav = document.querySelector('.global-nav__wrap');
+const navOverlay = document.createElement('div');
+navOverlay.className = 'global-nav__overlay';
+
+function hamMenu () {
+  hamburger.addEventListener('click', function () {
+    if (nav.classList.contains('is-shown')) {
+      nav.classList.remove('is-shown');
+      navOverlay.animate(
+        {opacity:[1, 0]},
+        {duration: 500, fill:"both"}
+      );
+      setTimeout(() => {
+        navOverlay.remove();
+      }, 500);
+    } else {
+      nav.classList.add('is-shown');
+      nav.appendChild(navOverlay);
+      navOverlay.animate(
+        {opacity:[0, 1]},
+        {duration: 500, fill:"both"}
+      );
+    }
+  });
+  navOverlay.addEventListener('click', function () {
+      nav.classList.remove('is-shown');
+      navOverlay.animate(
+        {opacity:[1, 0]},
+        {duration: 500, fill:"both"}
+      );
+      setTimeout(() => {
+        navOverlay.remove();
+      }, 500);
+  });
+}
+hamMenu();
+
+//NavLink クリック時
+let navLink = document.querySelectorAll('.global-nav__link');
+for (let i = 0; i < navLink.length; i++) {
+  navLink[i].addEventListener('click', function () {
+    nav.classList.remove('is-shown');
+    navOverlay.animate(
+      {opacity:[1, 0]},
+      {duration: 500, fill:"both"}
+    );
+    setTimeout(() => {
+      navOverlay.remove();
+    }, 500);
+  });
+}
+
+</script>
+</body>
+</html>

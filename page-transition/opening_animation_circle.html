@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+</head>
+<style>
+* {margin: 0; padding: 0; list-style: none; box-sizing: border-box; text-decoration: none;}
+body {
+  overflow: hidden;
+  background: #ccc;
+}
+.is-opening {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+}
+.is-opening::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  opacity: 1;
+  background: #a3bacd;
+  animation: opening-before 1.6s linear forwards;
+}
+@keyframes opening-before {
+  90% {opacity: 1;}
+  100% {opacity: 0;}
+}
+.is-opening::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #0062a0;
+  animation: opening-after 1.6s ease-in-out .6s forwards;
+}
+@keyframes opening-after {
+  0% {transform: translate(-50%, -50%) scale(0);}
+  60% {transform: translate(-50%, -50%) scale(200); opacity: 1;}
+  100% {transform: translate(-50%, -50%) scale(200); opacity: 0;}
+}
+</style>
+<body>
+<main>
+  Contents
+</main>
+
+<script>
+//ページ表示時のアニメーション
+window.addEventListener('DOMContentLoaded', (event) => {
+
+  //アニメーション用要素追加
+  const opening = document.createElement('div');
+  opening.classList.add('is-opening');
+  document.body.appendChild(opening);
+
+  //アニメーション用要素削除
+  setTimeout(() => {
+    opening.remove();
+  }, 3000);
+});
+</script>
+
+</body>
+</html>

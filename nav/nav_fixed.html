@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+</head>
+<style>
+* {margin: 0; padding: 0; list-style: none; box-sizing: border-box; text-decoration: none;}
+header { height: 50vh; background: #a0dee9;}
+main {height: 200vh;}
+nav {
+	height: 100px;
+	background: #b9e6dc;
+}
+.is-fixed {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+}
+</style>
+<body>
+<header>mainvisual</header>
+<nav>nav</nav>
+<main>main</main>
+
+<script>
+
+const nav = document.querySelector('nav');
+const offset = nav.getBoundingClientRect(); //nav.offset
+
+window.addEventListener('scroll', function(){
+  // console.log(window.pageYOffset); //スクロール量
+  if ( window.pageYOffset > offset.top) { //スクロール量が navの上端を越えたら
+    nav.classList.add('is-fixed');
+  } else {
+    nav.classList.remove('is-fixed');
+  }
+});
+</script>
+
+</body>
+</html>

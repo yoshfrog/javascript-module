@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title></title>
+<style>
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	box-sizing: border-box;
+}
+main {
+	height: 1000px;
+}
+#modal.hidden,
+#overlay.hidden {
+	display: none;
+}
+#modal {
+	display: block;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	z-index: 2;
+	transform: translate(-50%, -50%);
+	width: 50vw;
+	background-color: #fff;
+}
+#overlay {
+	display: block;
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1;
+	background-color: rgba(0, 0, 0, .6);
+}
+
+</style>
+</head>
+<body>
+<main>
+<a id="open" href="#">OPEN</a>
+<section id="modal" class="hidden">
+	<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum quam reiciendis, modi voluptatibus iusto quod eligendi inventore reprehenderit est omnis sequi culpa! Ex error vitae repellendus qui ipsum porro velit!</p>
+	<a id="close" href="#">CLOSE</a>
+</section>
+
+<div id="overlay" class="hidden"></div>
+
+</main>
+<script>
+const open = document.getElementById('open');
+const close = document.getElementById('close');
+const modal = document.getElementById('modal');
+const overlay = document.getElementById('overlay');
+
+open.addEventListener('click', () => {
+	modal.classList.remove('hidden');
+	overlay.classList.remove('hidden');
+});
+
+close.addEventListener('click', () => {
+	modal.classList.add('hidden');
+	overlay.classList.add('hidden');
+});
+
+overlay.addEventListener('click', () => {
+	close.click();
+});
+</script>
+</body>
+</html>

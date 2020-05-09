@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title></title>
+<style>
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	box-sizing: border-box;
+}
+main {
+	height: 1000px;
+}
+
+.tab-wrap {
+	width: 80vw;
+	margin: 10vh auto;
+}
+.tab-list {
+	display: flex;
+	border: 1px solid #ccc;
+	border-bottom: none;
+}
+.tab-list li {
+	width: 25vw;
+}
+.tab-list li:not(:first-child) {
+	border-left: 1px solid #ccc;
+}
+.tab-list li a {
+	display: block;
+	padding: 1em 0;
+	text-align: center;
+	transition: .3s;
+	border-bottom: 1px solid #ccc;
+}
+.tab-list li a.active {
+	margin-bottom: 0;
+	color: #fff;
+	background: #999;
+	border-bottom: none;
+}
+.tab-contents {
+	border: 1px solid #ccc;
+	border-top: none;
+}
+.tab-contents > div {
+	display: none;
+	padding: 1em;
+}
+.tab-contents > div.active {
+  display: block;
+}
+
+
+</style>
+</head>
+<body>
+<main>
+<div class="tab-wrap">
+	<ul class="tab-list">
+		<li><a href="#" data-id="tab-content-a" class="active">サイトの概要</a></li>
+		<li><a href="#" data-id="tab-content-b">サービス内容</a></li>
+		<li><a href="#" data-id="tab-content-c">お問い合わせ</a></li>
+		<li><a href="#" data-id="tab-content-d">お問い合わせ</a></li>
+	</ul>
+<div class="tab-contents">
+	<div id="tab-content-a" class="active">tab-contents A</div>
+	<div id="tab-content-b">tab-contents B<br>tab-contents B</div>
+	<div id="tab-content-c">tab-contents C<br>tab-contents C</div>
+	<div id="tab-content-d">tab-contents D<br>tab-contents D<br>tab-contents D</div>
+	</div>
+</div>
+
+</main>
+<script>
+  const tabList = document.querySelectorAll('.tab-list li a');
+  const tabContent = document.querySelectorAll('.tab-contents > div');
+
+  tabList.forEach(tabListClicked => {
+    tabListClicked.addEventListener('click', e => {
+      e.preventDefault();
+
+      tabList.forEach(tabItem => {
+        tabItem.classList.remove('active');
+      });
+      tabListClicked.classList.add('active');
+
+      tabContent.forEach(tabContentItem => {
+        tabContentItem.classList.remove('active');
+      });
+      document.getElementById(tabListClicked.dataset.id).classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

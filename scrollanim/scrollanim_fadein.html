@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title></title>
+<style>
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	box-sizing: border-box;
+	overflow-x: hidden;
+}
+img {max-width: 100%;}
+
+.empty-box {height: 90vh;}
+.scroll-anim {
+	opacity : 0;
+	transition : all 1s;
+}
+.anim-up {
+	transform : translateY(200px);
+}
+.anim-fadein-up{ 
+	opacity : 1;
+	transform : translateY(0);
+}
+.anim-left {
+	transform : translateX(-100px);
+}
+.anim-fadein-left {
+	opacity : 1;
+	transform : translateX(0);
+}
+.anim-right {
+	position: absolute;
+	right: -100px;
+}
+.anim-fadein-right {
+	opacity : 1;
+	right: 0;
+}
+.delay-box {display: flex; overflow-y: hidden;}
+.delay-box > div{width: 33vw;}
+.delay-box > div:nth-child(2) { transition-delay:100ms; }
+.delay-box > div:nth-child(3) { transition-delay:200ms; }
+
+</style>
+</head>
+<body>
+<main>
+scroll down↓
+<div class="empty-box"></div>
+<div class="scroll-anim anim-up"><img src="https://unsplash.it/500/250"></div>
+<div class="empty-box"></div>
+<div class="scroll-anim anim-up"><img src="https://unsplash.it/500/250"></div>
+<div class="empty-box"></div>
+<div class="delay-box">
+  <div class="scroll-anim anim-up"><img src="https://unsplash.it/500/250"></div>
+  <div class="scroll-anim anim-up"><img src="https://unsplash.it/500/250"></div>
+  <div class="scroll-anim anim-up"><img src="https://unsplash.it/500/250"></div>
+</div>
+<div class="empty-box"></div>
+<div class="scroll-anim anim-left"><img src="https://unsplash.it/500/250"></div>
+<div class="empty-box"></div>
+<div class="scroll-anim anim-right"><img src="https://unsplash.it/500/250"></div>
+<div class="empty-box"></div>
+
+</main>
+<script>
+const windowHeight = window.innerHeight; // ウィンドウの高さ
+const animeUp = document.querySelectorAll('.anim-up'); // フェードさせる要素の取得
+const animeLeft = document.querySelectorAll('.anim-left'); // フェードさせる要素の取得
+const animeRight = document.querySelectorAll('.anim-right'); // フェードさせる要素の取得
+
+window.addEventListener('scroll', () => {
+  for(let i = 0; i < animeUp.length; i++) {
+    if (windowHeight > animeUp[i].getBoundingClientRect().top + windowHeight/5) {
+      animeUp[i].classList.add('anim-fadein-up');
+    }
+  }
+  for(let i = 0; i < animeLeft.length; i++) {
+    if (windowHeight > animeLeft[i].getBoundingClientRect().top + windowHeight/5) {
+      animeLeft[i].classList.add('anim-fadein-left');
+    }
+  }
+  for(let i = 0; i < animeRight.length; i++) {
+    if (windowHeight > animeRight[i].getBoundingClientRect().top + windowHeight/5) {
+      animeRight[i].classList.add('anim-fadein-right');
+    }
+  }
+});
+
+</script>
+</body>
+</html>

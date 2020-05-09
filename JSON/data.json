@@ -1,0 +1,18 @@
+[{
+  "title": "Title 1",
+  "content": [
+    { "card": "Card Title 1-1", "text": "Text 1-1", "img": "https://picsum.photos/200/100?random=1", "alt": "Alt 1-1" },
+    { "card": "Card Title 1-2", "text": "Text 1-2", "img": "https://picsum.photos/200/100?random=2", "alt": "Alt 1-2" },
+    { "card": "Card Title 1-3", "text": "Text 1-3", "img": "https://picsum.photos/200/100?random=3", "alt": "Alt 1-3" }
+  ]
+},
+{
+  "title": "Title 2",
+  "content": [
+    { "card": "Card Title 2-1", "text": "Text 2-1", "img": "https://picsum.photos/200/100?random=4", "alt": "Alt 2-1" },
+    { "card": "Card Title 2-2", "text": "Text 2-2", "img": "https://picsum.photos/200/100?random=5", "alt": "Alt 2-2" },
+    { "card": "Card Title 2-3", "text": "Text 2-3", "img": "https://picsum.photos/200/100?random=6", "alt": "Alt 2-3" }
+  ]
+}]
+
+

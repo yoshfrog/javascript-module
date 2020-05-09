@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+</head>
+<style>
+* {margin: 0; padding: 0; list-style: none; box-sizing: border-box; text-decoration: none;}
+header { height: 50vh; background: #a0dee9;}
+main {height: 200vh;}
+nav {
+	height: 100px;
+	background: #b9e6dc;
+}
+/* .is-fixed {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+} */
+.clone-nav {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 2;
+	width: 100%;
+	transition: .3s;
+	transform: translateY(-100%);
+}
+.is-fixed {
+	transform: translateY(0);
+}
+</style>
+<body>
+<header>mainvisual</header>
+<nav>nav</nav>
+<main>main</main>
+
+<script>
+
+const nav = document.querySelector('nav');
+const offset = nav.getBoundingClientRect(); //nav.offset
+const cloneNav = nav.cloneNode();
+cloneNav.classList.add('clone-nav');
+cloneNav.innerHTML ='clone-nav';
+nav.after(cloneNav);
+
+window.addEventListener('scroll', function(){
+  // console.log(window.pageYOffset); //スクロール量
+  if ( window.pageYOffset > offset.top) { //スクロール量が navの上端を越えたら
+    cloneNav.classList.add('is-fixed');
+  } else {
+    cloneNav.classList.remove('is-fixed');
+  }
+});
+</script>
+
+</body>
+</html>
